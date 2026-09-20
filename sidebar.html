@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="dark"><title>Quill Research</title><link rel="stylesheet" href="sidebar.css"></head>
+<body>
+<header class="app-header"><a class="brand" href="#" aria-label="Quill Capture"><svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5 14 1-5 8-6 3 3-7 8-5 1Zm1-1 7-7M4 17h12"/></svg>Quill</a><span class="session-label">Saved locally</span></header>
+<nav class="tabs" role="tablist" aria-label="Quill workflows">
+<button id="tab-capture" role="tab" aria-selected="true" aria-controls="panel-capture" data-tab="capture" tabindex="0">Capture</button>
+<button id="tab-replies" role="tab" aria-selected="false" aria-controls="panel-replies" data-tab="replies" tabindex="-1">Replies <span id="replyCount" class="count-badge" hidden>0</span></button>
+<button id="tab-keywords" role="tab" aria-selected="false" aria-controls="panel-keywords" data-tab="keywords" tabindex="-1">Legacy</button>
+<button id="tab-settings" role="tab" aria-selected="false" aria-controls="panel-settings" data-tab="settings" tabindex="-1">Settings</button>
+</nav>
+<main>
+<section id="panel-capture" class="panel" role="tabpanel" aria-labelledby="tab-capture">
+<div class="source-row"><span id="sourceContext">Open an X page.</span><span id="scanBadge" class="pill">Ready</span></div>
+<div class="capture-toolbar"><label for="captureMode" class="sr-only">Capture mode</label><select id="captureMode"><option value="feed">Feed · reply candidates</option><option value="profile">Profile · all posts</option><option value="articles">Articles · loaded links</option></select><span class="capture-count"><strong id="captureCount">0</strong> collected</span></div>
+<p id="modeHint" class="mode-hint">Scroll naturally. Relevant and uncertain posts can be saved in Replies.</p>
+<section class="workflow-section"><h2>Your feed · relevance view</h2>
+<button id="jevAnalyze" class="primary-action" type="button">Analyze loaded posts</button><p id="jevAnalysisProgress" class="field-help" role="status">Idle · click to analyze, then done.</p>
+<label class="jev-switch"><input id="jevHideView" type="checkbox"> Hide posts unrelated to my work</label>
+<p id="jevCaptureHint" class="field-help">One click checks only the posts already loaded now, applies results together, then stops. Scrolling and Hide/Show never analyze more posts.</p>
+<p class="field-help">Hide unrelated only filters checked posts. Unknown posts stay visible. + List saves one post; Analyze & save also saves matches from a fixed loaded batch.</p>
+<p id="jevViewStatus" class="status" role="status"></p></section>
+<p id="jevHealthView" class="field-help" role="status"></p><button id="jevRetryView" class="text-button" type="button">Test connection</button>
+<button id="collectionAction" class="primary-action">Start collecting</button>
+<p id="scanStatus" class="status" role="status"></p>
+<details id="captureTools" class="tools"><summary>Capture tools <span>More actions</span></summary><div class="tool-list"><button id="manualScan" class="tool-button">Capture loaded candidates</button><button id="captureCurrent" class="tool-button">Capture current post</button><button class="export-only tool-button" id="capturePage">Capture open article</button></div><div class="export-actions export-only"><button id="download" class="secondary">Download JSON</button><button id="copyJson" class="secondary">Copy JSON</button></div><p class="field-help export-only">Includes exposed text, IDs, dates, media links, and failures.</p></details>
+<p id="sessionNote" class="session-note">Reply candidates are saved locally and stay after reload.</p>
+</section>
+<section id="panel-replies" class="panel" role="tabpanel" aria-labelledby="tab-replies" hidden>
+<div class="section-heading"><h1>Reply queue <span id="queueTotal" class="count-badge">0</span></h1><button id="refresh" class="text-button">Refresh</button></div>
+<div class="reply-toolbar">
+<button id="generateAll" type="button">Generate missing replies</button>
+<button id="stopBatch" class="secondary" type="button" hidden>Stop after current reply</button>
+<button id="rankJev" class="secondary" type="button">Rank saved tweets · Jev</button>
+<button id="stopJev" class="secondary" type="button" hidden>Stop ranking</button>
+<label for="jevSort" class="field-help">Queue order</label><select id="jevSort"><option value="jev">Jev topic relevance</option><option value="saved">Original saved order</option></select>
+<details class="reply-options"><summary>Queue options</summary><div class="reply-option-list">
+<button id="recoverCandidates" type="button">Recover open tabs</button>
+<button id="openNext" type="button">Open ready sources</button>
+<button id="clearReplies" type="button">Clear all saved replies</button>
+</div></details>
+</div><p id="queueStatus" class="status" role="status"></p>
+<p id="jevQueueStatus" class="status" role="status"></p>
+<div class="queue-heading"><span id="queueContext" class="subtle">Generate here, then open &amp; paste into X.</span></div><div id="items"></div>
+</section>
+<section id="panel-keywords" class="panel" role="tabpanel" aria-labelledby="tab-keywords" hidden>
+<div class="section-heading"><h1>Legacy keywords · inactive</h1><span id="ruleCount" class="subtle">0 active</span></div>
+<p class="field-help">Kept for reference only. These rules do not filter, exclude, prioritize, hide, or select posts.</p><form id="keywordForm" class="keyword-add"><label class="sr-only" for="ruleKind">Rule type</label><select id="ruleKind"><option value="MATCH">Match</option><option value="EXCLUDE">Exclude</option><option value="PRIORITY">Priority</option></select><label class="sr-only" for="ruleValue">Keyword</label><input id="ruleValue" placeholder="Add keyword" maxlength="160" required><button id="addRule" type="submit" aria-label="Add keyword">+</button></form>
+<label for="ruleSearch" class="sr-only">Filter keywords</label><input id="ruleSearch" type="search" placeholder="Filter keywords…">
+<p id="keywordStatus" class="status" role="status"></p><div id="rules"></div><button id="restorePresets" class="text-button restore">Add missing presets</button>
+</section>
+<section id="panel-settings" class="panel" role="tabpanel" aria-labelledby="tab-settings" hidden>
+<div class="section-heading"><h1>Gemini</h1><span id="keyBadge" class="pill">Key needed</span></div>
+<form id="settingsForm"><label for="geminiKey">Gemini API key</label><input id="geminiKey" type="password" placeholder="Paste your Gemini API key" autocomplete="off"><p class="field-help">Leave blank to keep your saved key.</p><label for="geminiModel">Gemini model</label><input id="geminiModel" value="gemini-3.8-flash" required><div class="row settings-actions"><button id="saveSettings" type="submit">Save</button><button id="clearKey" type="button" class="secondary">Remove key</button></div></form><p id="connectionStatus" class="status" role="status"></p>
+<p class="field-help">Your key stays in this Chrome profile. Only extension pages can read it. Generate sends your source post and voice files directly to Gemini.</p>
+<section class="workflow-section"><div class="section-heading"><h2>Jev · selection intelligence</h2><span id="jevBadge" class="pill">Off</span></div>
+<form id="jevForm">
+<label for="jevKey">Vercel AI Gateway key · Jev only</label><input id="jevKey" type="password" autocomplete="off" placeholder="Leave blank to keep saved key">
+<label for="jevBrief">What conversations matter to you?</label><textarea id="jevBrief" maxlength="3000" rows="5" required></textarea>
+<button id="jevFocusPreset" type="button" class="text-button">Use my AI creative / e-commerce focus</button>
+<label class="jev-switch"><input id="jevEnabled" type="checkbox"> Enable Jev</label>
+<label class="jev-switch"><input id="jevZdr" type="checkbox"> Require Zero Data Retention</label><p class="field-help">Vercel requires Pro or Enterprise for this option. Leave it on to require that protection; switch it off to use standard Gateway data handling on Hobby. This choice never changes automatically after an error.</p>
+<p class="field-help">Enabling Jev only makes it available. Posts are sent to Vercel / TypeSafe only for a batch you start, capture, or ranking you request. A test sends one sample. Your interests brief describes meaning, not required keywords. Jev reads exposed text, not the videos themselves.</p>
+<label for="jevLimit">Maximum Jev requests per UTC day</label><input id="jevLimit" type="number" min="1" max="1000" value="200" required>
+<p id="jevUsage" class="field-help"></p><div class="row settings-actions"><button id="saveJev" type="submit">Save Jev settings</button><button id="clearJevKey" class="secondary" type="button">Remove Gateway key</button></div>
+</form><p id="jevStatus" class="status" role="status"></p>
+<p id="jevHealthSettings" class="field-help" role="status"></p><button id="jevRetrySettings" class="text-button" type="button">Test connection</button><p class="field-help">Testing sends one sample post, not your saved tweets. It uses one request from your daily limit. Failed evaluations pause until you Retry.</p>
+<p class="field-help">Model: typesafe-ai/jev. Gemini still connects directly to Google. Scores are model estimates, not verified facts. Jev cannot view media or linked articles. Your personal Gateway key is stored in this browser, not bundled in the extension; use a dedicated key with a Gateway budget. This is not secure secret storage against someone with access to your browser profile.</p></section>
+<section class="workflow-section"><h2>Voice files</h2><p id="voiceStatus" class="field-help">Checking files…</p><label for="profileFile">profile.md</label><input id="profileFile" type="file" accept=".md,.txt"><label for="opinionsFile">opinions.md</label><input id="opinionsFile" type="file" accept=".md,.txt"><div class="row settings-actions"><button id="importVoice" type="button">Import both files</button><button id="resetVoice" type="button" class="secondary">Use bundled files</button></div></section>
+<details class="tools"><summary>Storage & version</summary><p class="field-help">Saved posts, reply edits, keywords, and your keys stay in this browser. Profile and article captures use temporary export sessions.</p><div class="detail-row"><span>Version</span><span>0.6.13</span></div></details>
+</section>
+</main>
+<script src="defaults.js"></script><script src="sidebar.js"></script><script src="jev-panel.js"></script>
+</body></html>

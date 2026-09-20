@@ -1,0 +1,28 @@
+.quill-actions { display: inline-flex !important; flex: 0 0 auto !important; align-items: center !important; gap: 3px !important; width: auto !important; min-width: 0 !important; height: 20px !important; margin: 0 0 0 4px !important; }
+.quill-action { appearance: none !important; display: inline-flex !important; flex: 0 0 auto !important; align-items: center !important; justify-content: center !important; width: auto !important; min-width: 0 !important; height: 20px !important; max-height: 20px !important; margin: 0 !important; padding: 0 6px !important; border: 1px solid rgba(124,131,255,.42) !important; border-radius: 5px !important; background: #252631 !important; color: #cfd3ff !important; font: 700 9px/1 system-ui, sans-serif !important; letter-spacing: .01em !important; line-height: 1 !important; white-space: nowrap !important; cursor: pointer; }
+.quill-action:hover { border-color: #7c83ff !important; background: #34375b !important; color: #f3f4ff !important; }
+
+#quill-collector-panel { position: fixed; top: 92px; left: 18px; z-index: 2147483647; width: 206px; padding: 12px; border: 1px solid rgba(124,131,255,.45); border-radius: 11px; background: rgba(27,27,31,.97); color: #f4f4fa; box-shadow: 0 12px 32px rgba(0,0,0,.35); font: 12px/1.35 system-ui, sans-serif; }
+.quill-collector-head { display: flex; align-items: center; gap: 7px; }
+.quill-collector-head strong { font-size: 12px; }
+.quill-collector-dot { width: 7px; height: 7px; border-radius: 999px; background: #7c83ff; box-shadow: 0 0 10px rgba(124,131,255,.85); }
+.quill-collector-row { display: flex; justify-content: space-between; margin-top: 10px; color: #b9bbcf; }
+.quill-collector-row strong { color: #f6f6fb; font-size: 16px; }
+#quill-collector-detail { margin: 8px 0 0; color: #d6d7e7; }
+.quill-collector-note { margin: 6px 0 0; color: #8f91a6; font-size: 11px; }
+
+#quill-collector-panel[hidden]{display:none!important}.quill-action:focus-visible{outline:2px solid #aeb5ff!important;outline-offset:2px}.quill-action:disabled{opacity:.55;cursor:default}@media(prefers-reduced-motion:reduce){.quill-action{transition:none!important}}
+/* Expanded posts keep their original geometry; relevance joins + List / Reply. */
+.quill-relevance-bar { display: inline-flex !important; flex: 0 0 auto !important; align-items: center !important; align-self: center !important; gap: 3px !important; width: auto !important; height: 20px !important; max-height: 20px !important; min-width: 0 !important; margin: 0 0 0 4px !important; padding: 0 !important; background: none !important; border: 0 !important; border-radius: 0 !important; color: #71767b !important; font: 500 10px/1 system-ui, sans-serif !important; }
+.quill-relevance-chip { display: inline-flex !important; align-items: center !important; gap: 4px !important; white-space: nowrap !important; padding: 0 2px !important; cursor: help !important; }
+.quill-relevance-chip[hidden] { display: none !important; }
+.quill-relevance-chip[data-level="Relevant"] { color: #69a88a !important; }
+.quill-relevance-chip[data-level="Review"] { color: #a69264 !important; }
+.quill-relevance-chip[data-level="Low relevance"] { color: #71767b !important; }
+.quill-visibility-toggle { appearance: none !important; display: inline-flex !important; flex: 0 0 auto !important; align-items: center !important; justify-content: center !important; width: auto !important; min-width: 0 !important; height: 20px !important; min-height: 0 !important; max-height: 20px !important; margin: 0 !important; border: 0 !important; border-radius: 4px !important; padding: 0 4px !important; background: transparent !important; color: #71767b !important; cursor: pointer !important; font: 500 10px/1 system-ui, sans-serif !important; }
+.quill-visibility-toggle:hover { color: #aeb5be !important; background: rgba(128,128,128,.1) !important; }
+.quill-visibility-toggle:focus-visible { outline: 2px solid #8c98c0 !important; outline-offset: 2px !important; }
+article[data-quill-collapsed="true"] { min-height: 0 !important; padding-top: 6px !important; padding-bottom: 6px !important; }
+article[data-quill-collapsed="true"] > :not(.quill-relevance-bar) { display: none !important; }
+article[data-quill-collapsed="true"] > .quill-relevance-bar { display: flex !important; flex: 1 1 auto !important; justify-content: space-between !important; width: 100% !important; height: 24px !important; max-height: 24px !important; margin: 0 !important; padding: 0 4px !important; font-size: 11px !important; }
+article[data-quill-collapsed="true"] .quill-visibility-toggle { color: #8994be !important; font-size: 11px !important; }
